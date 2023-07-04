@@ -17,8 +17,7 @@ public class HelloYou extends HttpServlet {
 		if (name != null) {
 			response.getWriter().append("Hello " + name);			
 		} else {
-			
+			response.getWriter().append("No name found");						
 		}
-	
 	}
 }
