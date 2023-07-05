@@ -2,10 +2,8 @@
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.time.YearMonth;
-import java.time.temporal.ChronoUnit;
-import java.time.temporal.Temporal;
 import java.util.Date;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import static java.time.temporal.ChronoUnit.SECONDS;
 
 
 @WebServlet("/Calculate")
@@ -21,6 +18,7 @@ public class Calculate extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		Logger LOG = Logger.getLogger( Calculate.class.getName());
 		
 		HttpSession session = request.getSession(true);
 		

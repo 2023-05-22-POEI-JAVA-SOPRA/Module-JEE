@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
 @WebServlet("/Login")
 public class Login extends HttpServlet {
 
@@ -26,9 +25,6 @@ public class Login extends HttpServlet {
 		request.getRequestDispatcher("/Login.jsp").forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("in do post");
 		String login = request.getParameter("login");
