@@ -1,6 +1,5 @@
 package fr.m2i.crud.entity;
 
-
 public class Product{
 	
 	private String name;
