@@ -1,5 +1,6 @@
 package fr.m2i.crud.controller;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -10,6 +11,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.catalina.connector.Response;
+
+import com.google.gson.Gson;
+
 import fr.m2i.crud.model.User;
 import fr.m2i.crud.service.UserService;
 
@@ -19,54 +24,54 @@ public class UserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
 	private UserService service = new UserService();
-	
+	Gson gson = new Gson();
+
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		try {
 			int id = Integer.parseInt( request.getParameter("id"));
 			User u = service.getById(id);
 			if (u != null) {
-				response.getWriter().print(u);
+				
+				response.getWriter().print( gson.toJson(u));
 			} else {
-				response.getWriter().print("User not found");				
+				response.getWriter().print("User not found");
+				response.setStatus( Response.SC_FORBIDDEN);
 			}
 		} catch (NumberFormatException e) {
 			ArrayList<User> listUsers = service.getAll();
-			PrintWriter out = response.getWriter();
 			
-			for (User user : listUsers) {
-				out.println(user);
-			}
+			response.getWriter().print(gson.toJson(listUsers));			
 		}
 	}
-
+ 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String name = request.getParameter("name");
-		String login = request.getParameter("login");
-		String password = request.getParameter("password");
-		String email = request.getParameter("email");
-		int age = Integer.parseInt( request.getParameter("age") );
+		BufferedReader reader = request.getReader();
+		User user = gson.fromJson(reader, User.class);
 		
-		if (service.create(name, login, password, email, age)) {
+		if (service.create(user)) {
 			response.getWriter().print("User Created");
+			response.setStatus( Response.SC_CREATED );
 		} else {
-			response.getWriter().print("User not Created");			
+			response.getWriter().print("User not Created");
+			response.setStatus( Response.SC_FORBIDDEN);
 		}
 	}
 
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String name = request.getParameter("name");
-		String login = request.getParameter("login");
-		String password = request.getParameter("password");
-		String email = request.getParameter("email");
-		int age = Integer.parseInt( request.getParameter("age") );
+		
+		BufferedReader reader = request.getReader();
+		User user = gson.fromJson(reader, User.class);
 		
 		int id = Integer.parseInt( request.getParameter("id") );
 		
-		if (service.update(id, name, login, password, email, age)) {
+		if (service.update(id, user)) {
 			response.getWriter().print("User Updated");
 		} else {
 			response.getWriter().print("User not Updated");
+			response.setStatus( Response.SC_FORBIDDEN);
+
 		}
 	
 	}
@@ -78,6 +83,8 @@ public class UserController extends HttpServlet {
 			response.getWriter().print("User Deleted");
 		} else {
 			response.getWriter().print("User not Deleted");
+			response.setStatus( Response.SC_FORBIDDEN);
+
 		}
 	}
 

@@ -6,7 +6,7 @@ import fr.m2i.crud.model.User;
 
 public class UserService {
 
-	ArrayList<User> listUsers = new ArrayList<>();
+	static ArrayList<User> listUsers = new ArrayList<>();
 	
 	
 	public User getById(int id) {
