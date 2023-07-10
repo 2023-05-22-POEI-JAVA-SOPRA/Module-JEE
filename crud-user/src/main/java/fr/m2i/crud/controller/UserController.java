@@ -15,6 +15,7 @@ import org.apache.catalina.connector.Response;
 
 import com.google.gson.Gson;
 
+import fr.m2i.crud.model.Score;
 import fr.m2i.crud.model.User;
 import fr.m2i.crud.service.UserService;
 
@@ -63,6 +64,7 @@ public class UserController extends HttpServlet {
 		
 		BufferedReader reader = request.getReader();
 		User user = gson.fromJson(reader, User.class);
+		
 		
 		int id = Integer.parseInt( request.getParameter("id") );
 		
