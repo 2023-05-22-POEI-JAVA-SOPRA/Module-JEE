@@ -2,23 +2,40 @@ package fr.m2i.crud.entity;
 
 public class Product{
 	
+	private int id;
+	
 	private String name;
 	private String description;
 	private float price;
 	private int quantity;
 	
-	public Product(String name, String description, float price, int quantity) {
+	
+
+	
+	public Product(int id, String name, String description, float price, int quantity) {
 		super();
+		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.price = price;
 		this.quantity = quantity;
 	}
-	
+
+
 	public Product() {
 	}
 	
 	
+	public int getId() {
+		return id;
+	}
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
 	public String getName() {
 		return name;
 	}

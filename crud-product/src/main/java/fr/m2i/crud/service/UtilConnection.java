@@ -1,9 +1,10 @@
+package fr.m2i.crud.service;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class UtilConnection {
-
 	public static Connection seConnecter() {
 		
 		try {
@@ -16,7 +17,4 @@ public class UtilConnection {
 		}
 		return null;
 	}
-	
-	
-	
 }

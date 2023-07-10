@@ -49,8 +49,11 @@ public class ProductController extends HttpServlet {
 		float price = Float.parseFloat(request.getParameter("price"));
 		int quantity = Integer.parseInt(request.getParameter("quantity"));
 
-		service.create(name, description, price, quantity);
-		response.getWriter().append("Product created succesfuly");
+		if (service.create(name, description, price, quantity) ) {			
+			response.getWriter().append("Product created succesfuly");
+		} else {
+			response.getWriter().append("Product not created");
+		}
 
 	}
 
